@@ -14,7 +14,6 @@
 
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 
 use std::collections::HashMap;
 
@@ -36,29 +35,36 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         let team_2_name = v[1].to_string();
         let team_2_score: u8 = v[3].parse().unwrap();
         
-        let team1_exists_score=scores.get(&team_1_name).unwrap();
+        
+        match scores.get(&team_1_name){
+            Some(team)=>{
+                let team_1 = Team{name:team_1_name.clone(),goals_scored:team.goals_scored+team_1_score,goals_conceded:team.goals_conceded+team_2_score};
+                scores.insert(team_1_name,team_1);
+            }
+            None=>{
+                let team_1 = Team{name:team_1_name.clone(),goals_scored:team_1_score,goals_conceded:team_2_score};
+                scores.insert(team_1_name,team_1);
+            }
 
-        let team2_exists_score=scores.get(&team_2_name).unwrap();
-
-        let team_temp:u8;
-
-        if scores.get(&team_1_name).unwrap().goals_conceded>team_1_score{
-            team_temp=scores.get(&team_1_name).unwrap().goals_conceded;
-        }else{
-            team_temp=team_1_score;
         }
+        match scores.get(&team_2_name){
+            Some(team)=>{
+                let team_1 = Team{name:team_2_name.clone(),goals_scored:team.goals_scored+team_2_score,goals_conceded:team.goals_conceded+team_1_score};
+                scores.insert(team_2_name,team_1);
+            }
+            None=>{
+                let team_1 = Team{name:team_2_name.clone(),goals_scored:team_2_score,goals_conceded:team_1_score};
+                scores.insert(team_2_name,team_1);
+            }
 
-        let team_1=Team{name:team_1_name.clone(),goals_scored:team_1_score+team1_exists_score.goals_conceded,goals_conceded:team_1_score};
-        let team_2=Team{name:team_2_name.clone(),goals_scored:team_2_score+team2_exists_score.goals_conceded,goals_conceded:team_2_score};
-
-        scores.insert(team_1_name,team_1);
-        scores.insert(team_2_name,team_2);
+        }
 
         // TODO: Populate the scores table with details extracted from the
         // current line. Keep in mind that goals scored by team_1
         // will be number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+
     }
     scores
 }
