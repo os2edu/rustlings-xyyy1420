@@ -18,7 +18,6 @@
 // - The output element is going to be a Vector of strings.
 // No hints this time!
 
-// I AM NOT DONE
 
 pub enum Command {
     Uppercase,
@@ -48,9 +47,10 @@ mod my_module {
                         },
                         5 => {
                             let mut str_tmp:String="".to_string();
-                            for i in 0..*tmp{
+                            for i in 0..=*tmp{
                                 str_tmp+=string;
                             }
+                            output.push(str_tmp);
                         },
                         _ =>{}
                     }
