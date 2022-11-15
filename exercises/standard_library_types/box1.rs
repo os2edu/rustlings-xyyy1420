@@ -20,7 +20,7 @@
 
 #[derive(PartialEq, Debug)]
 pub enum List {
-    Cons(i32, List),
+    Cons(i32, Box<List>),
     Nil,
 }
 
@@ -33,7 +33,7 @@ fn main() {
 }
 
 pub fn create_empty_list() -> List {
-    todo!()
+    Box::<List>::new()
 }
 
 pub fn create_non_empty_list() -> List {
